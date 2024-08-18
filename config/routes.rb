@@ -1,15 +1,25 @@
 Rails.application.routes.draw do
-  get 'documents/new'
-  get 'documents/create'
-  get 'documents/index'
-  get 'reports/index'
+  # Devise routes for user authentication
   devise_for :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  # Root path
+  root to: "documents#index"
+
+  # Health check route
   get "up" => "rails/health#show", as: :rails_health_check
 
+  # Sidekiq dashboard (make sure this is secured in production)
+  require 'sidekiq/web'
+
+  
+  mount Sidekiq::Web => '/sidekiq'
+  
+
+  # Routes for documents upload and report viewing
+  resources :documents, only: [:index, :new, :create, :show]
+  resources :reports, only: [:index]
+
+  # Optionally, you can remove this redundant comment
   # Defines the root path route ("/")
   # root "posts#index"
 end
