@@ -10,7 +10,6 @@ class Document < ApplicationRecord
   store_accessor :products, :nome, :ncm, :cfop, :unidade, :quantidade, :valor_unitario
   store_accessor :taxes, :icms, :ipi, :pis, :cofins
   store_accessor :total_values, :total_produtos, :total_impostos
-  
 
   def processed?
     processed
@@ -19,8 +18,8 @@ class Document < ApplicationRecord
   private
 
   def file_format
-    if file.attached? && !file.content_type.in?(%w(application/xml text/xml))
-      errors.add(:file, "must be an XML file")
-    end
+    return unless file.attached? && !file.content_type.in?(%w[application/xml text/xml])
+
+    errors.add(:file, 'must be an XML file')
   end
 end

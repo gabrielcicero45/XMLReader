@@ -19,8 +19,8 @@ class DocumentProcessorJob < ApplicationJob
         bairro: xml_data.xpath('//emit/enderEmit/xBairro').text,
         uf: xml_data.xpath('//emit/enderEmit/UF').text,
         cep: xml_data.xpath('//emit/enderEmit/CEP').text,
-        pais: xml_data.xpath('//emit/enderEmit/xPais').text,
-      } 
+        pais: xml_data.xpath('//emit/enderEmit/xPais').text
+      }
     }
     destinatario = {
       nome: xml_data.xpath('//dest/xNome').text,
@@ -31,8 +31,8 @@ class DocumentProcessorJob < ApplicationJob
         bairro: xml_data.xpath('//dest/enderDest/xBairro').text,
         uf: xml_data.xpath('//dest/enderDest/UF').text,
         cep: xml_data.xpath('//dest/enderDest/CEP').text,
-        pais: xml_data.xpath('//dest/enderDest/xPais').text,
-      } 
+        pais: xml_data.xpath('//dest/enderDest/xPais').text
+      }
     }
 
     products = []
@@ -59,13 +59,13 @@ class DocumentProcessorJob < ApplicationJob
 
     document.update!(
       serie: series,
-      nNF: nNF,
-      dhEmi: dhEmi,
+      nNF:,
+      dhEmi:,
       emit: emitente,
       dest: destinatario,
-      products: products,
-      taxes: taxes,
-      total_values: { total_produtos: total_produtos, total_impostos: total_impostos },
+      products:,
+      taxes:,
+      total_values: { total_produtos:, total_impostos: },
       processed: true
     )
   end

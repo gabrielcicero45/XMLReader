@@ -2,8 +2,10 @@ require 'rails_helper'
 
 RSpec.describe DocumentsController, type: :controller do
   let(:user) { create(:user) }
-  let(:valid_file) { fixture_file_upload(Rails.root.join('spec', 'fixtures', 'files', 'sample.xml'), 'application/xml') }
-  let(:document) { create(:document, user: user, file: valid_file) }
+  let(:valid_file) do
+    fixture_file_upload(Rails.root.join('spec', 'fixtures', 'files', 'sample.xml'), 'application/xml')
+  end
+  let(:document) { create(:document, user:, file: valid_file) }
 
   before do
     sign_in user
@@ -12,8 +14,8 @@ RSpec.describe DocumentsController, type: :controller do
   describe 'GET #index' do
     it 'assigns all documents to @documents' do
       get :index
-      expect(response).to have_http_status(:ok) 
-      expect(response).to render_template(:index) 
+      expect(response).to have_http_status(:ok)
+      expect(response).to render_template(:index)
     end
   end
 
