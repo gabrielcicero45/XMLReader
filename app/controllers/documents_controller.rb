@@ -73,8 +73,8 @@ class DocumentsController < ApplicationController
       sheet.add_row ["COFINS:", @document.taxes.present? && @document.taxes['cofins'].present? ? number_to_currency(@document.taxes['cofins'].to_f) : 'Não disponível']
 
       sheet.add_row ["Totalizadores"]
-      sheet.add_row ["Total dos Produtos:", number_to_currency(@document.total_values['total_produtos'].to_f)]
-      sheet.add_row ["Total dos Impostos:", number_to_currency(@document.total_values['total_impostos'].to_f)]
+      sheet.add_row ["Total dos Produtos:", @document.total_values.present? ? number_to_currency(@document.total_values['total_products'].to_f): 'Não disponível']
+      sheet.add_row ["Total dos Impostos:",@document.total_values.present?  ? number_to_currency(@document.total_values['total_taxes'].to_f): 'Não disponível']
     end
 
     send_data package.to_stream.read, filename: "documento_#{@document.id}.xlsx", content_type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
