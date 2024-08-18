@@ -1,10 +1,10 @@
-<h1>Enviar Documento XML</h1>
+<h1 class="text-2xl font-bold mb-4">Enviar Documento XML</h1>
 
-<%= form_with model: @document, local: true do |form| %>
+<%= form_with model: @document, local: true, class: "space-y-6" do |form| %>
   <% if @document.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@document.errors.count, "erro") %> impedem o envio:</h2>
-      <ul>
+    <div id="error_explanation" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+      <h2 class="font-bold"><%= pluralize(@document.errors.count, "erro") %> impedem o envio:</h2>
+      <ul class="list-disc ml-5 mt-2">
         <% @document.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
@@ -13,13 +13,13 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :file, "Selecione um arquivo XML" %>
-    <%= form.file_field :file %>
+    <%= form.label :file, "Selecione um arquivo XML", class: "block font-medium text-gray-700" %>
+    <%= form.file_field :file, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md" %>
   </div>
 
   <div class="actions">
-    <%= form.submit "Enviar" %>
+    <%= form.submit "Enviar", class: "bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" %>
   </div>
 <% end %>
 
-<%= link_to 'Voltar', documents_path %>
+<%= link_to 'Voltar', documents_path, class: "inline-block mt-4 text-blue-500 hover:text-blue-700" %>

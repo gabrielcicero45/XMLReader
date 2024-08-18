@@ -28,6 +28,8 @@ worker_timeout 3600 if ENV.fetch('RAILS_ENV', 'development') == 'development'
 port ENV.fetch("PORT") { 3000 }
 environment ENV.fetch("RAILS_ENV") { "production" }
 
+plugin :tailwindcss if ENV.fetch("RAILS_ENV", "development") == "development"
+
 on_worker_boot do
   # Configuração específica para puma + ActiveRecord
   ActiveRecord::Base.establish_connection if defined?(ActiveRecord)

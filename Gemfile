@@ -34,6 +34,8 @@ gem 'caxlsx'
 gem 'caxlsx_rails'
 
 gem 'tailwindcss-rails'
+gem 'autoprefixer-rails'
+gem 'mini_racer'
 
 # Use Redis adapter to run Action Cable in production
 gem 'redis'

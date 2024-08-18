@@ -1,61 +1,64 @@
-<h1>Relatório do Documento</h1>
-<td>
-  <%= link_to 'Voltar', documents_path() %>
-</td>
-<h2>Dados do Documento Fiscal</h2>
-<ul>
+<h1 class="text-3xl font-bold mb-6">Relatório do Documento</h1>
+
+<div class="mb-4">
+  <%= link_to 'Voltar', documents_path, class: "text-blue-500 hover:text-blue-700 underline" %>
+</div>
+
+<h2 class="text-2xl font-semibold mb-4">Dados do Documento Fiscal</h2>
+<ul class="list-disc pl-5 space-y-2 mb-6">
   <li><strong>Número de Série:</strong> <%= @document.serie %></li>
   <li><strong>Número da Nota Fiscal:</strong> <%= @document.nNF %></li>
   <li><strong>Data e Hora de Emissão:</strong> <%= @document.dhEmi %></li>
   <li><strong>Emitente:</strong> 
     <%= @document.emit.present? ? @document.emit['nome'] : 'Não disponível' %>, 
     CNPJ: <%= @document.emit.present? ? @document.emit['cnpj'] : 'Não disponível'%>
-    Endereco: <%= @document.emit.present? ?  "#{@document.emit['endereco']['logradouro']}, #{@document.emit['endereco']['numero']}, #{@document.emit['endereco']['bairro']}, #{@document.emit['endereco']['uf']}, CEP: #{@document.emit['endereco']['cep']}, #{@document.emit['endereco']['pais']}" : 'Não disponível'%>
+    <br>
+    <strong>Endereço:</strong> <%= @document.emit.present? ? "#{@document.emit['endereco']['logradouro']}, #{@document.emit['endereco']['numero']}, #{@document.emit['endereco']['bairro']}, #{@document.emit['endereco']['uf']}, CEP: #{@document.emit['endereco']['cep']}, #{@document.emit['endereco']['pais']}" : 'Não disponível'%>
   </li>
   <li><strong>Destinatário:</strong> 
     <%= @document.dest.present? ? @document.dest['nome'] : 'Não disponível' %>, 
     CNPJ: <%= @document.dest.present? ? @document.dest['cnpj'] : 'Não disponível' %>
-    Endereco: <%= @document.dest.present? ? "#{@document.dest['endereco']['logradouro']}, #{@document.dest['endereco']['numero']}, #{@document.dest['endereco']['bairro']}, #{@document.dest['endereco']['uf']}, CEP: #{@document.dest['endereco']['cep']}, #{@document.dest['endereco']['pais']}" : 'Não disponível'%>
+    <br>
+    <strong>Endereço:</strong> <%= @document.dest.present? ? "#{@document.dest['endereco']['logradouro']}, #{@document.dest['endereco']['numero']}, #{@document.dest['endereco']['bairro']}, #{@document.dest['endereco']['uf']}, CEP: #{@document.dest['endereco']['cep']}, #{@document.dest['endereco']['pais']}" : 'Não disponível'%>
   </li>
 </ul>
 
-<h2>Produtos Listados</h2>
-<table>
-  <thead>
+<h2 class="text-2xl font-semibold mb-4">Produtos Listados</h2>
+<table class="min-w-full table-auto bg-white shadow-md rounded-lg overflow-hidden">
+  <thead class="bg-gray-200 text-gray-700">
     <tr>
-      <th>Nome</th>
-      <th>NCM</th>
-      <th>CFOP</th>
-      <th>Unidade</th>
-      <th>Quantidade</th>
-      <th>Valor Unitário</th>
+      <th class="px-4 py-2">Nome</th>
+      <th class="px-4 py-2">NCM</th>
+      <th class="px-4 py-2">CFOP</th>
+      <th class="px-4 py-2">Unidade</th>
+      <th class="px-4 py-2">Quantidade</th>
+      <th class="px-4 py-2">Valor Unitário</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody class="divide-y divide-gray-200">
     <% @document.products.each do |product| %>
-      <tr>
-        <td><%= product['nome'] %></td>
-        <td><%= product['ncm'] %></td>
-        <td><%= product['cfop'] %></td>
-        <td><%= product['unidade'] %></td>
-        <td><%= product['quantidade'] %></td>
-        <td><%= number_to_currency(product['valor_unitario']) %></td>
+      <tr class="hover:bg-gray-100">
+        <td class="px-4 py-2"><%= product['nome'] %></td>
+        <td class="px-4 py-2"><%= product['ncm'] %></td>
+        <td class="px-4 py-2"><%= product['cfop'] %></td>
+        <td class="px-4 py-2"><%= product['unidade'] %></td>
+        <td class="px-4 py-2"><%= product['quantidade'] %></td>
+        <td class="px-4 py-2"><%= number_to_currency(product['valor_unitario']) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<h2>Impostos Associados</h2>
-<ul>
+<h2 class="text-2xl font-semibold mt-6 mb-4">Impostos Associados</h2>
+<ul class="list-disc pl-5 space-y-2 mb-6">
   <li><strong>ICMS:</strong> <%= @document.taxes.present? && @document.taxes['icms'].present? ? number_to_currency(@document.taxes['icms'].to_f) : 'Não disponível' %></li>
   <li><strong>IPI:</strong> <%= @document.taxes.present? && @document.taxes['ipi'].present? ? number_to_currency(@document.taxes['ipi'].to_f) : 'Não disponível' %></li>
   <li><strong>PIS:</strong> <%= @document.taxes.present? && @document.taxes['pis'].present? ? number_to_currency(@document.taxes['pis'].to_f) : 'Não disponível' %></li>
   <li><strong>COFINS:</strong> <%= @document.taxes.present? && @document.taxes['cofins'].present? ? number_to_currency(@document.taxes['cofins'].to_f) : 'Não disponível' %></li>
 </ul>
 
-<h2>Totalizadores</h2>
-<ul>
-  <li><strong>Total dos Produtos:</strong> <%= number_to_currency(@document.total_values['total_produtos'].to_f) %></li>
-  <li><strong>Total dos Impostos:</strong> <%= number_to_currency(@document.total_values['total_impostos'].to_f) %></li>
+<h2 class="text-2xl font-semibold mt-6 mb-4">Totalizadores</h2>
+<ul class="list-disc pl-5 space-y-2">
+  <li><strong>Total dos Produtos:</strong> <%= number_to_currency(@document.total_values['total_products'].to_f) %></li>
+  <li><strong>Total dos Impostos:</strong> <%= number_to_currency(@document.total_values['total_taxes'].to_f) %></li>
 </ul>
-

@@ -1,29 +1,40 @@
-<h2>Sign up</h2>
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+  <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+    <h1 class="text-2xl font-bold text-center mb-6">Criar Conta</h1>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), local: true) do |f| %>
+      <% if resource.errors.any? %>
+        <div class="bg-red-100 text-red-600 p-3 rounded-lg mb-4">
+          <h2><%= pluralize(resource.errors.count, "erro") %> impediram a criação da conta:</h2>
+          <ul class="list-disc pl-5 mt-2">
+            <% resource.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+      <div class="mb-4">
+        <%= f.label :email, class: "block text-gray-700 font-medium mb-2" %>
+        <%= f.email_field :email, autofocus: true, class: "w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-blue-500" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      <div class="mb-4">
+        <%= f.label :password, class: "block text-gray-700 font-medium mb-2" %>
+        <%= f.password_field :password, autocomplete: "new-password", class: "w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-blue-500" %>
+      </div>
+
+      <div class="mb-4">
+        <%= f.label :password_confirmation, class: "block text-gray-700 font-medium mb-2" %>
+        <%= f.password_field :password_confirmation, class: "w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-blue-500" %>
+      </div>
+
+      <div>
+        <%= f.submit "Criar Conta", class: "w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 rounded-lg focus:outline-none focus:ring focus:ring-blue-500" %>
+      </div>
+    <% end %>
+
+    <div class="mt-6 text-center">
+      <%= link_to "Já tem uma conta? Faça login", new_session_path(resource_name), class: "text-blue-500 hover:underline" %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

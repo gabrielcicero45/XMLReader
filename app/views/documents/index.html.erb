@@ -1,30 +1,40 @@
-<h1>Documentos Enviados</h1>
-  <%= button_to 'Logout', destroy_user_session_path, method: :delete  %>
-  
-<table>
+<h1 class="text-2xl font-bold mb-4">Documentos Enviados</h1>
+
+<div class="mb-4">
+  <%= button_to 'Logout', destroy_user_session_path, method: :delete, class: "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" %>
+</div>
+
+<table class="min-w-full bg-white border rounded-lg shadow-lg">
   <thead>
-    <tr>
-      <th>Nome do Arquivo</th>
-      <th>Data de Envio</th>
-      <th>Status de Processamento</th>
+    <tr class="bg-gray-800 text-white">
+      <th class="py-2 px-4">Nome do Arquivo</th>
+      <th class="py-2 px-4">Data de Envio</th>
+      <th class="py-2 px-4">Status de Processamento</th>
+      <th class="py-2 px-4">Ações</th>
     </tr>
   </thead>
   <tbody>
     <% @documents.each do |document| %>
-      <tr>
-        <td><%= link_to document.file.filename, rails_blob_path(document.file, disposition: "attachment") %></td>
-        <td><%= document.created_at.strftime("%d/%m/%Y %H:%M") %></td>
-        <td><%= document.processed? ? "Processado" : "Em processamento" %></td>
-        <td>
-            <%= link_to 'Ver Relatório', document_path(document) %>
+      <tr class="border-b">
+        <td class="py-2 px-4">
+          <%= link_to document.file.filename, rails_blob_path(document.file, disposition: "attachment"), class: "text-blue-500 hover:underline" %>
         </td>
-        <td>
-        <%= link_to 'Exportar Documento', export_document_path(document, format: :xlsx) %>
+        <td class="py-2 px-4"><%= document.created_at.strftime("%d/%m/%Y %H:%M") %></td>
+        <td class="py-2 px-4">
+          <span class="<%= document.processed? ? 'text-green-600 font-semibold' : 'text-yellow-500 font-semibold' %>">
+            <%= document.processed? ? "Processado" : "Em processamento" %>
+          </span>
         </td>
-        <td><%= button_to 'Apagar', document_path(document), method: :delete, data: { confirm: 'Tem certeza que quer apagar este documento ?' } %></td>
+        <td class="py-2 px-4 space-x-2">
+          <%= link_to 'Ver Relatório', document_path(document), class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded" %>
+          <%= link_to 'Exportar Documento', export_document_path(document, format: :xlsx), class: "bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded" %>
+          <%= button_to 'Apagar', document_path(document), method: :delete, data: { confirm: 'Tem certeza que quer apagar este documento ?' }, class: "bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 mt-2 rounded" %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to 'Enviar novo documento', new_document_path %>
+<div class="mt-6">
+  <%= link_to 'Enviar novo documento', new_document_path, class: "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" %>
+</div>
