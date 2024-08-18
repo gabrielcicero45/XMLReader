@@ -19,6 +19,12 @@ Rails.application.routes.draw do
   resources :documents, only: [:index, :new, :create, :show]
   resources :reports, only: [:index]
 
+  resources :documents do
+    member do
+      get :export
+    end
+  end
+
   # Optionally, you can remove this redundant comment
   # Defines the root path route ("/")
   # root "posts#index"

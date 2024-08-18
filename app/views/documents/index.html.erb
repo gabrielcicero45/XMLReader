@@ -17,6 +17,9 @@
         <td>
             <%= link_to 'Ver Relatório', document_path(document) %>
         </td>
+        <td>
+        <%= link_to 'Exportar Documento', export_document_path(document, format: :xlsx) %>
+        </td>
       </tr>
     <% end %>
   </tbody>
