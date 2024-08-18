@@ -8,9 +8,8 @@ Rails.application.routes.draw do
   require 'sidekiq/web'
 
   mount Sidekiq::Web => '/sidekiq'
-  
-  resources :documents, only: [:index, :new, :create, :show]
-  resources :reports, only: [:index]
+
+  resources :documents, only: %i[index new create show destroy]
 
   resources :documents do
     member do

@@ -21,6 +21,7 @@
         <td>
         <%= link_to 'Exportar Documento', export_document_path(document, format: :xlsx) %>
         </td>
+        <td><%= button_to 'Apagar', document_path(document), method: :delete, data: { confirm: 'Tem certeza que quer apagar este documento ?' } %></td>
       </tr>
     <% end %>
   </tbody>

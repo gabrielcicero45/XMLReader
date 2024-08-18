@@ -41,4 +41,18 @@ RSpec.describe DocumentsController, type: :controller do
       expect(response.content_type).to eq('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     end
   end
+
+  describe 'DELETE #destroy' do
+  it 'deletes the document' do
+    expect {
+      delete :destroy, params: { id: document.id }
+    }.to change(Document, :count).by(0)
+  end
+
+  it 'redirects to documents index' do
+    delete :destroy, params: { id: document.id }
+    expect(response).to redirect_to(documents_path)
+    expect(flash[:notice]).to eq('Documento apagado.')
+  end
+end
 end
