@@ -1,5 +1,5 @@
 class DocumentsController < ApplicationController
-  require 'axlsx'
+  require 'caxlsx'
   include ActionView::Helpers::NumberHelper
 
   before_action :authenticate_user!
