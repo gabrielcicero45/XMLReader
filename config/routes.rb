@@ -13,17 +13,11 @@ Rails.application.routes.draw do
 
   mount Sidekiq::Web => '/sidekiq'
 
-  # Routes for documents upload and report viewing
-  resources :documents, only: %i[index new create show]
-  resources :reports, only: [:index]
+  resources :documents, only: %i[index new create show destroy]
 
   resources :documents do
     member do
       get :export
     end
   end
-
-  # Optionally, you can remove this redundant comment
-  # Defines the root path route ("/")
-  # root "posts#index"
 end

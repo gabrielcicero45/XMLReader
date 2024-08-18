@@ -16,6 +16,15 @@ class DocumentsController < ApplicationController
     @document = Document.find(params[:id])
   end
 
+  def destroy
+    @document.destroy
+    if @document.destroy
+      redirect_to documents_path, notice: 'Documento apagado.'
+    else
+      redirect_to documents_path, notice: 'Nao foi possivel deletar este documento.'
+    end
+  end
+
   def create
     @document = current_user.documents.build(document_params)
     if @document.save
