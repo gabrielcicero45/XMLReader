@@ -30,8 +30,8 @@ gem 'devise'
 
 gem 'sidekiq'
 
-gem 'axlsx'
-gem 'axlsx_rails'
+gem 'caxlsx'
+gem 'caxlsx_rails'
 
 # Use Redis adapter to run Action Cable in production
 gem 'redis'
