@@ -2,9 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Document, type: :model do
   let(:user) { create(:user) }
-  let(:valid_file) { fixture_file_upload(Rails.root.join('spec', 'fixtures', 'files', 'sample.xml'), 'application/xml') }
-  let(:invalid_file) { fixture_file_upload(Rails.root.join('spec', 'fixtures', 'files', 'invalid_file.txt'), 'text/plain') }
-  let(:document) { build(:document, user: user, file: valid_file) }
+  let(:valid_file) do
+    fixture_file_upload(Rails.root.join('spec', 'fixtures', 'files', 'sample.xml'), 'application/xml')
+  end
+  let(:invalid_file) do
+    fixture_file_upload(Rails.root.join('spec', 'fixtures', 'files', 'invalid_file.txt'), 'text/plain')
+  end
+  let(:document) { build(:document, user:, file: valid_file) }
 
   describe 'associations' do
     it { is_expected.to belong_to(:user) }

@@ -4,7 +4,7 @@ RSpec.describe DocumentProcessorJob, type: :job do
   let(:job) { described_class.new }
   let(:user) { create(:user) }
   let(:file) { fixture_file_upload(Rails.root.join('spec', 'fixtures', 'files', 'sample.xml'), 'application/xml') }
-  let(:document) { create(:document, user: user, file: file) }
+  let(:document) { create(:document, user:, file:) }
 
   before do
     allow(Document).to receive(:find).and_return(document)
