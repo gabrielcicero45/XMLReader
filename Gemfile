@@ -33,6 +33,8 @@ gem 'sidekiq'
 gem 'caxlsx'
 gem 'caxlsx_rails'
 
+gem 'tailwindcss-rails'
+
 # Use Redis adapter to run Action Cable in production
 gem 'redis'
 
